@@ -147,10 +147,10 @@ func getSchema() schema.Schema {
 										"pattern": schema.StringAttribute{
 											Optional: true,
 										},
-										"urltemplate": schema.StringAttribute{
+										"urlTemplate": schema.StringAttribute{
 											Optional: true,
 										},
-										"labeltemplate": schema.StringAttribute{
+										"labelTemplate": schema.StringAttribute{
 											Optional: true,
 										},
 									},
