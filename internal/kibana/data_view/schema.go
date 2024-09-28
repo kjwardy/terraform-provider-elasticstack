@@ -616,7 +616,11 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				return nil, diags
 			}
 
-			apiParams := &apiFieldFormatParams{}
+			apiParams := &apiFieldFormatParams{
+				Pattern:       "",
+				Urltemplate:   "",
+				Labeltemplate: "",
+			}
 
 			if !tfParams.Pattern.IsNull() {
 				apiParams.Pattern = tfParams.Pattern.ValueString()
