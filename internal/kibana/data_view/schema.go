@@ -344,13 +344,13 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 		if params, ok := formatMap["params"]; ok {
 			if paramsMap, ok := params.(map[string]interface{}); ok {
 				params := &apiFieldFormatParams{}
-				if pattern, ok := paramsMap["pattern"]; ok {
+				if pattern, ok := paramsMap["pattern"]; ok && pattern != nil {
 					params.Pattern = pattern.(string)
 				}
-				if urltemplate, ok := paramsMap["urlTemplate"]; ok {
+				if urltemplate, ok := paramsMap["urlTemplate"]; ok && urltemplate != nil {
 					params.Urltemplate = urltemplate.(string)
 				}
-				if labeltemplate, ok := paramsMap["labelTemplate"]; ok {
+				if labeltemplate, ok := paramsMap["labelTemplate"]; ok && labeltemplate != nil {
 					params.Labeltemplate = labeltemplate.(string)
 				}
 				apiFormat.Params = params
@@ -358,7 +358,6 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 		}
 
 		fieldFormats[field] = apiFormat
-		fieldFormats["case.id"] = apiFormat
 	}
 
 	if len(fieldFormats) > 0 {
@@ -617,12 +616,7 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				return nil, diags
 			}
 
-			apiParams := &apiFieldFormatParams{
-				Pattern:       "",
-				Urltemplate:   "",
-				Labeltemplate: "",
-			}
-
+			apiParams := &apiFieldFormatParams{}
 			if !tfParams.Pattern.IsNull() {
 				apiParams.Pattern = tfParams.Pattern.ValueString()
 			}
