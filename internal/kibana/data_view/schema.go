@@ -344,10 +344,10 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 					apiFormat.Params = &apiFieldFormatParams{Pattern: pattern.(string)}
 				}
 				if urltemplate, ok := paramsMap["urltemplate"]; ok {
-					apiFormat.Params = &apiFieldFormatParams{Urltemplate: urlTemplate.(string)}
+					apiFormat.Params = &apiFieldFormatParams{Urltemplate: urltemplate.(string)}
 				}
 				if labeltemplate, ok := paramsMap["labeltemplate"]; ok {
-					apiFormat.Params = &apiFieldFormatParams{Labeltemplate: labelTemplate.(string)}
+					apiFormat.Params = &apiFieldFormatParams{Labeltemplate: labeltemplate.(string)}
 				}
 			}
 		}
