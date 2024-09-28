@@ -344,10 +344,10 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 					apiFormat.Params = &apiFieldFormatParams{Pattern: pattern.(string)}
 				}
 				if urltemplate, ok := paramsMap["urltemplate"]; ok {
-					apiFormat.Params = &apiFieldFormatParams{urlTemplate: urltemplate.(string)}
+					apiFormat.Params = &apiFieldFormatParams{Urltemplate: urlTemplate.(string)}
 				}
 				if labeltemplate, ok := paramsMap["labeltemplate"]; ok {
-					apiFormat.Params = &apiFieldFormatParams{labelTemplate: labeltemplate.(string)}
+					apiFormat.Params = &apiFieldFormatParams{Labeltemplate: labelTemplate.(string)}
 				}
 			}
 		}
@@ -613,8 +613,8 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 
 			apiParams = &apiFieldFormatParams{
 				Pattern:       tfParams.Pattern.ValueString(),
-				urlTemplate:   tfParams.urlTemplate.ValueString(),
-				labelTemplate: tfParams.labelTemplate.ValueString(),
+				Urltemplate:   tfParams.Urltemplate.ValueString(),
+				Labeltemplate: tfParams.Labeltemplate.ValueString(),
 			}
 		}
 
