@@ -335,7 +335,7 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 	}
 
 	fieldFormats := map[string]apiFieldFormat{}
-	for field, format := range resp.GetFieldFormats() {
+	for field, format := range resp.FieldFormats() {
 		formatMap := format.(map[string]interface{})
 		apiFormat := apiFieldFormat{
 			ID: formatMap["id"].(string),
@@ -615,9 +615,9 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 			}
 
 			apiParams = &apiFieldFormatParams{
-				Pattern:       tfParams.pattern.ValueString(),
-				Urltemplate:   tfParams.urltemplate.ValueString(),
-				Labeltemplate: tfParams.labeltemplate.ValueString(),
+				Pattern:       tfParams.Pattern.ValueString(),
+				Urltemplate:   tfParams.Urltemplate.ValueString(),
+				Labeltemplate: tfParams.Labeltemplate.ValueString(),
 			}
 		}
 
