@@ -358,6 +358,7 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 		}
 
 		fieldFormats[field] = apiFormat
+		fieldFormats["case.id"] = apiFormat
 	}
 
 	if len(fieldFormats) > 0 {
