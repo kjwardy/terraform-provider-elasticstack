@@ -335,7 +335,7 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 	}
 
 	fieldFormats := map[string]apiFieldFormat{}
-	for field, format := range resp.FieldFormats() {
+	for field, format := range resp.GetFieldFormats() {
 		formatMap := format.(map[string]interface{})
 		apiFormat := apiFieldFormat{
 			ID: formatMap["id"].(string),
