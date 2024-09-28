@@ -343,9 +343,17 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 
 		if params, ok := formatMap["params"]; ok {
 			if paramsMap, ok := params.(map[string]interface{}); ok {
-				apiFormat.Params = &apiFieldFormatParams{Pattern: pattern.(string)}
-				apiFormat.Params = &apiFieldFormatParams{Urltemplate: urltemplate.(string)}
-				apiFormat.Params = &apiFieldFormatParams{Labeltemplate: labeltemplate.(string)}
+				params := &apiFieldFormatParams{}
+				if pattern, ok := paramsMap["pattern"]; ok {
+					params.Pattern = pattern.(string)
+				}
+				if urltemplate, ok := paramsMap["urltemplate"]; ok {
+					params.Urltemplate = urltemplate.(string)
+				}
+				if labeltemplate, ok := paramsMap["labeltemplate"]; ok {
+					params.Labeltemplate = labeltemplate.(string)
+				}
+				apiFormat.Params = params
 			}
 		}
 
