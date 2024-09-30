@@ -145,15 +145,12 @@ func getSchema() schema.Schema {
 									Optional: true,
 									Attributes: map[string]schema.Attribute{
 										"pattern": schema.StringAttribute{
-											Required: false,
 											Optional: true,
 										},
 										"urltemplate": schema.StringAttribute{
-											Required: false,
 											Optional: true,
 										},
 										"labeltemplate": schema.StringAttribute{
-											Required: false,
 											Optional: true,
 										},
 									},
@@ -343,17 +340,16 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 
 		if params, ok := formatMap["params"]; ok {
 			if paramsMap, ok := params.(map[string]interface{}); ok {
-				params := &apiFieldFormatParams{}
-				if pattern, ok := paramsMap["pattern"]; ok && pattern != nil {
-					params.Pattern = pattern.(string)
+				fieldFormatParams := apiFieldFormatParams{}
+				if pattern, ok := paramsMap["pattern"]; ok {
+					fieldFormatParams.Pattern = pattern.(string)
 				}
-				if urltemplate, ok := paramsMap["urlTemplate"]; ok && urltemplate != nil {
-					params.Urltemplate = urltemplate.(string)
+				if urltemplate, ok := paramsMap["urlTemplate"]; ok {
+					fieldFormatParams.Urltemplate = urltemplate.(string)
 				}
-				if labeltemplate, ok := paramsMap["labelTemplate"]; ok && labeltemplate != nil {
-					params.Labeltemplate = labeltemplate.(string)
+				if labeltemplate, ok := paramsMap["labelTemplate"]; ok {
+					fieldFormatParams.Labeltemplate = labeltemplate.(string)
 				}
-				apiFormat.Params = params
 			}
 		}
 
@@ -616,15 +612,10 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				return nil, diags
 			}
 
-			apiParams := &apiFieldFormatParams{}
-			if !tfParams.Pattern.IsNull() {
-				apiParams.Pattern = tfParams.Pattern.ValueString()
-			}
-			if !tfParams.Urltemplate.IsNull() {
-				apiParams.Urltemplate = tfParams.Urltemplate.ValueString()
-			}
-			if !tfParams.Labeltemplate.IsNull() {
-				apiParams.Labeltemplate = tfParams.Labeltemplate.ValueString()
+			apiParams = &apiFieldFormatParams{
+				Pattern:       tfParams.Pattern.ValueString(),
+				Urltemplate:   tfParams.Urltemplate.ValueString(),
+				Labeltemplate: tfParams.Labeltemplate.ValueString(),
 			}
 		}
 
@@ -688,7 +679,7 @@ type tfFieldFormatParamsV0 struct {
 }
 
 type apiFieldFormatParams struct {
-	Pattern       string `tfsdk:"pattern" json:"pattern"`
-	Urltemplate   string `tfsdk:"urltemplate" json:"urlTemplate"`
-	Labeltemplate string `tfsdk:"labeltemplate" json:"labelTemplate"`
+	Pattern       string `tfsdk:"pattern" json:"pattern,omitempty"`
+	Urltemplate   string `tfsdk:"urltemplate" json:"urlTemplate,omitempty"`
+	Labeltemplate string `tfsdk:"labeltemplate" json:"labelTemplate,omitempty"`
 }
