@@ -40,7 +40,7 @@
 - Add `description` attribute to `elasticstack_elasticsearch_security_role` resource. ([#824](https://github.com/elastic/terraform-provider-elasticstack/pull/824))
 - Fix merge values for `elasticstack_kibana_synthetics_monitor` monitor locations ([#823](https://github.com/elastic/terraform-provider-elasticstack/pull/823)
 <<<<<<< HEAD
-- Add `elasticstack_elasticsearch_index_template` data source ([#828](https://github.com/elastic/terraform-provider-elasticstack/pull/828))
+- Add remaining field_formats to the `elasticstack_kibana_data_view` resource. ([#???](https://github.com/elastic/terraform-provider-elasticstack/pull/???))
 =======
 =======
 - Fix merge values for `elasticstack_kibana_synthetics_monitor` monitor locations ([#823](https://github.com/elastic/terraform-provider-elasticstack/pull/823)
