@@ -88,9 +88,10 @@ Optional:
 
 Optional:
 
-- `labeltemplate` (String)
+- `field_length` (Number)
+- `label_template` (String)
 - `pattern` (String)
-- `urltemplate` (String)
+- `url_template` (String)
 
 
 

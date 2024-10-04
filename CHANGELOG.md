@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - Fix secret handling `elasticstack_fleet_integration_policy` resource. ([#821](https://github.com/elastic/terraform-provider-elasticstack/pull/821))
+- Add remaining field_formats to the `elasticstack_kibana_data_view` resource. ([#???](https://github.com/elastic/terraform-provider-elasticstack/pull/???))
 
 ## [0.11.8] - 2024-10-02
 
@@ -10,6 +11,7 @@
 - Fix for synthetics http/tcp monitor produces inconsistent result after apply ([#801](https://github.com/elastic/terraform-provider-elasticstack/pull/801))
 - Migrate `elasticstack_fleet_integration_policy` to terraform-plugin-framework. Fix drift in integration policy secrets. ([#797](https://github.com/elastic/terraform-provider-elasticstack/pull/797))
 - Migrate `elasticstack_fleet_output` to terraform-plugin-framework. ([#811](https://github.com/elastic/terraform-provider-elasticstack/pull/811))
+- Add urlTemplate and labelTemplate to the `elasticstack_kibana_data_view` resource. ([#812](https://github.com/elastic/terraform-provider-elasticstack/pull/812))
 
 ## [0.11.7] - 2024-09-20
 

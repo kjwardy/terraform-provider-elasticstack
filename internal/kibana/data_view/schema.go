@@ -147,10 +147,13 @@ func getSchema() schema.Schema {
 										"pattern": schema.StringAttribute{
 											Optional: true,
 										},
-										"urltemplate": schema.StringAttribute{
+										"url_template": schema.StringAttribute{
 											Optional: true,
 										},
-										"labeltemplate": schema.StringAttribute{
+										"label_template": schema.StringAttribute{
+											Optional: true,
+										},
+										"field_length": schema.Float64Attribute{
 											Optional: true,
 										},
 									},
@@ -344,11 +347,14 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 				if pattern, ok := paramsMap["pattern"]; ok {
 					apiFormat.Params.Pattern = utils.Pointer(pattern.(string))
 				}
-				if urltemplate, ok := paramsMap["urlTemplate"]; ok {
-					apiFormat.Params.UrlTemplate = utils.Pointer(urltemplate.(string))
+				if url_template, ok := paramsMap["urlTemplate"]; ok {
+					apiFormat.Params.UrlTemplate = utils.Pointer(url_template.(string))
 				}
-				if labeltemplate, ok := paramsMap["labelTemplate"]; ok {
-					apiFormat.Params.LabelTemplate = utils.Pointer(labeltemplate.(string))
+				if label_template, ok := paramsMap["labelTemplate"]; ok {
+					apiFormat.Params.LabelTemplate = utils.Pointer(label_template.(string))
+				}
+				if field_length, ok := paramsMap["fieldLength"]; ok {
+					apiFormat.Params.FieldLength = utils.Pointer(field_length.(float64))
 				}
 			}
 		}
@@ -616,6 +622,7 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				Pattern:       tfParams.Pattern.ValueStringPointer(),
 				UrlTemplate:   tfParams.UrlTemplate.ValueStringPointer(),
 				LabelTemplate: tfParams.LabelTemplate.ValueStringPointer(),
+				FieldLength:   tfParams.FieldLength.ValueFloat64Pointer(),
 			}
 		}
 
@@ -673,13 +680,15 @@ type apiFieldFormat struct {
 }
 
 type tfFieldFormatParamsV0 struct {
-	Pattern       types.String `tfsdk:"pattern"`
-	UrlTemplate   types.String `tfsdk:"urltemplate"`
-	LabelTemplate types.String `tfsdk:"labeltemplate"`
+	Pattern       types.String  `tfsdk:"pattern"`
+	UrlTemplate   types.String  `tfsdk:"url_template"`
+	LabelTemplate types.String  `tfsdk:"label_template"`
+	FieldLength   types.Float64 `tfsdk:"field_length"`
 }
 
 type apiFieldFormatParams struct {
-	Pattern       *string `tfsdk:"pattern" json:"pattern,omitempty"`
-	UrlTemplate   *string `tfsdk:"urltemplate" json:"urlTemplate,omitempty"`
-	LabelTemplate *string `tfsdk:"labeltemplate" json:"labelTemplate,omitempty"`
+	Pattern       *string  `tfsdk:"pattern" json:"pattern,omitempty"`
+	UrlTemplate   *string  `tfsdk:"url_template" json:"urlTemplate,omitempty"`
+	LabelTemplate *string  `tfsdk:"label_template" json:"labelTemplate,omitempty"`
+	FieldLength   *float64 `tfsdk:"field_length" json:"fieldLength,omitempty"`
 }
