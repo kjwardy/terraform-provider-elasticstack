@@ -148,6 +148,7 @@ func getSchema() schema.Schema {
 											Optional: true,
 										},
 										"url_template": schema.StringAttribute{
+<<<<<<< HEAD
 											Description: "Add field values to a partial URL. Used when setting `id` to `url`.",
 											Optional:    true,
 										},
@@ -182,6 +183,15 @@ func getSchema() schema.Schema {
 													Optional:    true,
 												},
 											},
+=======
+											Optional: true,
+										},
+										"label_template": schema.StringAttribute{
+											Optional: true,
+										},
+										"field_length": schema.Float64Attribute{
+											Optional: true,
+>>>>>>> b11d4a1 (Added field_length for truncated field_format type)
 										},
 									},
 								},
@@ -382,6 +392,7 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 				}
 				if field_length, ok := paramsMap["fieldLength"]; ok {
 					apiFormat.Params.FieldLength = utils.Pointer(field_length.(float64))
+<<<<<<< HEAD
 				}
 				if field_type, ok := paramsMap["fieldType"]; ok {
 					apiFormat.Params.FieldType = utils.Pointer(field_type.(string))
@@ -402,6 +413,8 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 							apiFormat.Params.Colors.Background = utils.Pointer(background.(string))
 						}
 					}
+=======
+>>>>>>> b11d4a1 (Added field_length for truncated field_format type)
 				}
 			}
 		}
@@ -670,6 +683,7 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				UrlTemplate:   tfParams.UrlTemplate.ValueStringPointer(),
 				LabelTemplate: tfParams.LabelTemplate.ValueStringPointer(),
 				FieldLength:   tfParams.FieldLength.ValueFloat64Pointer(),
+<<<<<<< HEAD
 				FieldType:     tfParams.FieldType.ValueStringPointer(),
 				Colors: &apiTypeColorFieldFormatParams{
 					Range:      tfParams.Colors.Range.ValueStringPointer(),
@@ -677,6 +691,8 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 					Text:       tfParams.Colors.Text.ValueStringPointer(),
 					Background: tfParams.Colors.Background.ValueStringPointer(),
 				},
+=======
+>>>>>>> b11d4a1 (Added field_length for truncated field_format type)
 			}
 		}
 
@@ -734,6 +750,7 @@ type apiFieldFormat struct {
 }
 
 type tfFieldFormatParamsV0 struct {
+<<<<<<< HEAD
 	Pattern       types.String                 `tfsdk:"pattern"`
 	UrlTemplate   types.String                 `tfsdk:"url_template"`
 	LabelTemplate types.String                 `tfsdk:"label_template"`
@@ -763,4 +780,17 @@ type apiTypeColorFieldFormatParams struct {
 	Regex      *string `tfsdk:"regex" json:"regex,omitempty"`
 	Text       *string `tfsdk:"text" json:"text,omitempty"`
 	Background *string `tfsdk:"background" json:"background,omitempty"`
+=======
+	Pattern       types.String  `tfsdk:"pattern"`
+	UrlTemplate   types.String  `tfsdk:"url_template"`
+	LabelTemplate types.String  `tfsdk:"label_template"`
+	FieldLength   types.Float64 `tfsdk:"field_length"`
+}
+
+type apiFieldFormatParams struct {
+	Pattern       *string  `tfsdk:"pattern" json:"pattern,omitempty"`
+	UrlTemplate   *string  `tfsdk:"url_template" json:"urlTemplate,omitempty"`
+	LabelTemplate *string  `tfsdk:"label_template" json:"labelTemplate,omitempty"`
+	FieldLength   *float64 `tfsdk:"field_length" json:"fieldLength,omitempty"`
+>>>>>>> b11d4a1 (Added field_length for truncated field_format type)
 }
