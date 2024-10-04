@@ -17,6 +17,7 @@
 - Fix inconsistent output errors in `elasticstack_fleet_output` for `default_integrations` and `default_monitoring`. ([#841](https://github.com/elastic/terraform-provider-elasticstack/pull/841))
 - Fix secret handling `elasticstack_fleet_integration_policy` resource. ([#821](https://github.com/elastic/terraform-provider-elasticstack/pull/821))
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Fix merge values for `elasticstack_kibana_synthetics_monitor` monitor locations ([#823](https://github.com/elastic/terraform-provider-elasticstack/pull/823))
 - Migrate to a v8 Elasticsearch client ([#832](https://github.com/elastic/terraform-provider-elasticstack/pull/832))
 - Add support for the `.gemini` connector type for Kibana action connectors ([#819](https://github.com/elastic/terraform-provider-elasticstack/pull/819))
@@ -29,6 +30,9 @@
 =======
 - Fix merge values for `elasticstack_kibana_synthetics_monitor` monitor locations ([#823](https://github.com/elastic/terraform-provider-elasticstack/pull/823)
 >>>>>>> f61469c (Cleaned changelog bc that's gonna get annoying during development)
+=======
+- Fix merge values for `elasticstack_kibana_synthetics_monitor` monitor locations ([#823](https://github.com/elastic/terraform-provider-elasticstack/pull/823)
+>>>>>>> 5f43a67 (fix: merge values for synthetic monitor locations (#823))
 
 ## [0.11.8] - 2024-10-02
 
