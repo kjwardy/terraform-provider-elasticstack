@@ -148,13 +148,40 @@ func getSchema() schema.Schema {
 											Optional: true,
 										},
 										"url_template": schema.StringAttribute{
-											Optional: true,
+											Description: "Add field values to a partial URL. Used when setting `id` to `url`.",
+											Optional:    true,
 										},
 										"label_template": schema.StringAttribute{
-											Optional: true,
+											Description: "Specify a string that is shown instead of the raw URL. Used when setting `id` to `url`.",
+											Optional:    true,
 										},
 										"field_length": schema.Float64Attribute{
-											Optional: true,
+											Description: "Limits the character length of the field. Used when setting `id` to `truncate`.",
+											Optional:    true,
+										},
+										"field_type": schema.StringAttribute{
+											Description: "Defines the field type when setting `id` to `color`.",
+											Optional:    true,
+										},
+										"colors": schema.SingleNestedAttribute{
+											Description: "Map of attributes when setting `id` to `color`.",
+											Optional:    true,
+											Attributes: map[string]schema.Attribute{
+												"range": schema.StringAttribute{
+													Optional: true,
+												},
+												"regex": schema.StringAttribute{
+													Optional: true,
+												},
+												"text": schema.StringAttribute{
+													Description: "Hex value for the color of the text.",
+													Optional:    true,
+												},
+												"background": schema.StringAttribute{
+													Description: "Hex value for the color of the field's background.",
+													Optional:    true,
+												},
+											},
 										},
 									},
 								},
@@ -355,6 +382,26 @@ func dataViewFromResponse(resp data_views.DataViewResponseObjectDataView) apiDat
 				}
 				if field_length, ok := paramsMap["fieldLength"]; ok {
 					apiFormat.Params.FieldLength = utils.Pointer(field_length.(float64))
+				}
+				if field_type, ok := paramsMap["fieldType"]; ok {
+					apiFormat.Params.FieldType = utils.Pointer(field_type.(string))
+				}
+				if color, ok := paramsMap["color"]; ok {
+					if colorMap, ok := color.(map[string]interface{}); ok {
+						apiFormat.Params.Colors = &apiTypeColorFieldFormatParams{}
+						if rangeValue, ok := colorMap["range"]; ok {
+							apiFormat.Params.Colors.Range = utils.Pointer(rangeValue.(string))
+						}
+						if regex, ok := colorMap["regex"]; ok {
+							apiFormat.Params.Colors.Regex = utils.Pointer(regex.(string))
+						}
+						if text, ok := colorMap["text"]; ok {
+							apiFormat.Params.Colors.Text = utils.Pointer(text.(string))
+						}
+						if background, ok := colorMap["background"]; ok {
+							apiFormat.Params.Colors.Background = utils.Pointer(background.(string))
+						}
+					}
 				}
 			}
 		}
@@ -623,6 +670,13 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				UrlTemplate:   tfParams.UrlTemplate.ValueStringPointer(),
 				LabelTemplate: tfParams.LabelTemplate.ValueStringPointer(),
 				FieldLength:   tfParams.FieldLength.ValueFloat64Pointer(),
+				FieldType:     tfParams.FieldType.ValueStringPointer(),
+				// Colors: tfTypeColorFieldFormatParams{
+				// 	Range:      tfParams.Colors.Range,
+				// 	Regex:      tfParams.Colors.Regex,
+				// 	Text:       tfParams.Colors.Text,
+				// 	Background: tfParams.Colors.Background,
+				// },
 			}
 		}
 
@@ -680,15 +734,33 @@ type apiFieldFormat struct {
 }
 
 type tfFieldFormatParamsV0 struct {
-	Pattern       types.String  `tfsdk:"pattern"`
-	UrlTemplate   types.String  `tfsdk:"url_template"`
-	LabelTemplate types.String  `tfsdk:"label_template"`
-	FieldLength   types.Float64 `tfsdk:"field_length"`
+	Pattern       types.String                 `tfsdk:"pattern"`
+	UrlTemplate   types.String                 `tfsdk:"url_template"`
+	LabelTemplate types.String                 `tfsdk:"label_template"`
+	FieldLength   types.Float64                `tfsdk:"field_length"`
+	FieldType     types.String                 `tfsdk:"field_type"`
+	Colors        tfTypeColorFieldFormatParams `tfsdk:"colors"`
+}
+
+type tfTypeColorFieldFormatParams struct {
+	Range      types.String `tfsdk:"range"`
+	Regex      types.String `tfsdk:"regex"`
+	Text       types.String `tfsdk:"text"`
+	Background types.String `tfsdk:"background"`
 }
 
 type apiFieldFormatParams struct {
-	Pattern       *string  `tfsdk:"pattern" json:"pattern,omitempty"`
-	UrlTemplate   *string  `tfsdk:"url_template" json:"urlTemplate,omitempty"`
-	LabelTemplate *string  `tfsdk:"label_template" json:"labelTemplate,omitempty"`
-	FieldLength   *float64 `tfsdk:"field_length" json:"fieldLength,omitempty"`
+	Pattern       *string                        `tfsdk:"pattern" json:"pattern,omitempty"`
+	UrlTemplate   *string                        `tfsdk:"url_template" json:"urlTemplate,omitempty"`
+	LabelTemplate *string                        `tfsdk:"label_template" json:"labelTemplate,omitempty"`
+	FieldLength   *float64                       `tfsdk:"field_length" json:"fieldLength,omitempty"`
+	FieldType     *string                        `tfsdk:"field_type" json:"fieldType,omitempty"`
+	Colors        *apiTypeColorFieldFormatParams `tfsdk:"colors" json:"colors,omitempty"`
+}
+
+type apiTypeColorFieldFormatParams struct {
+	Range      *string `tfsdk:"range" json:"range,omitempty"`
+	Regex      *string `tfsdk:"regex" json:"regex,omitempty"`
+	Text       *string `tfsdk:"text" json:"text,omitempty"`
+	Background *string `tfsdk:"background" json:"background,omitempty"`
 }

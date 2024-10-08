@@ -88,10 +88,23 @@ Optional:
 
 Optional:
 
-- `field_length` (Number)
-- `label_template` (String)
+- `colors` (Attributes) Map of attributes when setting `id` to `color`. (see [below for nested schema](#nestedatt--data_view--field_formats--params--colors))
+- `field_length` (Number) Limits the character length of the field. Used when setting `id` to `truncate`.
+- `field_type` (String) Defines the field type when setting `id` to `color`.
+- `label_template` (String) Specify a string that is shown instead of the raw URL. Used when setting `id` to `url`.
 - `pattern` (String)
-- `url_template` (String)
+- `url_template` (String) Add field values to a partial URL. Used when setting `id` to `url`.
+
+<a id="nestedatt--data_view--field_formats--params--colors"></a>
+### Nested Schema for `data_view.field_formats.params.url_template`
+
+Optional:
+
+- `background` (String) Hex value for the color of the field's background.
+- `range` (String)
+- `regex` (String)
+- `text` (String) Hex value for the color of the text.
+
 
 
 
