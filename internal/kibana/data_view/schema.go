@@ -671,12 +671,12 @@ func tfFieldFormatsToAPI(ctx context.Context, fieldFormats types.Map) (map[strin
 				LabelTemplate: tfParams.LabelTemplate.ValueStringPointer(),
 				FieldLength:   tfParams.FieldLength.ValueFloat64Pointer(),
 				FieldType:     tfParams.FieldType.ValueStringPointer(),
-				// Colors: tfTypeColorFieldFormatParams{
-				// 	Range:      tfParams.Colors.Range,
-				// 	Regex:      tfParams.Colors.Regex,
-				// 	Text:       tfParams.Colors.Text,
-				// 	Background: tfParams.Colors.Background,
-				// },
+				Colors: &apiTypeColorFieldFormatParams{
+					Range:      tfParams.Colors.Range.ValueStringPointer(),
+					Regex:      tfParams.Colors.Regex.ValueStringPointer(),
+					Text:       tfParams.Colors.Text.ValueStringPointer(),
+					Background: tfParams.Colors.Background.ValueStringPointer(),
+				},
 			}
 		}
 
